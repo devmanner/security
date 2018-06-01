@@ -3,7 +3,7 @@
 net=$1
 port=$2
 
-iplist=$(nmap -sT -p $port -oG – 192.168.165.0/24 | grep -B 3 open | grep "Nmap scan report for" | awk '{print $5}')
+iplist=$(nmap -sT -p $port $net | grep -B 3 open | grep "Nmap scan report for" | awk '{print $5}')
 
 for ip in $iplist; do
 	echo "==============================================="
