@@ -12,6 +12,8 @@ if [ ! -f $tor_node_list ]; then
 fi
 
 for ip in "$@"; do
+	geoiplookup $ip
+
 	grep -q $ip $tor_node_list
 	tor_r=$?
 	if [ $tor_r -eq 0  ]; then
