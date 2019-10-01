@@ -1,4 +1,6 @@
+ID_X_PUB = $(shell ls ~/.ssh/id_*.pub)
+
 all:
-	cp ~/.ssh/id_rsa.pub .
+	cp ${ID_X_PUB} .
 	docker build --pull --tag devmanner/kali .
-	rm -f id_rsa.pub
+	rm $(notdir ${ID_X_PUB})

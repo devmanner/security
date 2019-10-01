@@ -11,7 +11,7 @@ RUN service ssh start
 
 RUN mkdir /root/.ssh
 RUN chmod 600 /root/.ssh
-ADD id_rsa.pub /root/.ssh/authorized_keys
+ADD id_*.pub /root/.ssh/authorized_keys
 RUN chmod 600 /root/.ssh/authorized_keys
 
 ENTRYPOINT service ssh restart && /bin/bash
