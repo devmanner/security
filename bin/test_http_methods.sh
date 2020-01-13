@@ -2,7 +2,7 @@
 
 URL=$1
 
-METHODS="GET POST OPTIONS TRACE PUT DELETE PROPFIND COPY MOVE"
+METHODS="GET POST OPTIONS TRACE PUT DELETE PROPFIND COPY MOVE PATCH"
 
 if [ "" == "$URL" ]; then
     echo "USAGE: $0 URL"
@@ -15,12 +15,10 @@ if [ "" == "$URL" ]; then
     exit -1
 fi
     
-METHODS="GET POST OPTIONS TRACE PUT DELETE PROPFIND COPY MOVE"
-
 for m in $METHODS; do
     extra_args=""
-    if [ $m = "POST" -o $m == "PUT" ]; then
-	extra_args="--data ''"
+    if [ $m == "POST" -o $m == "PUT" -o $m == "PATCH" ]; then
+		extra_args="--data ''"
     fi
     r=$(curl $extra_args -v --insecure -X $m $URL 2>&1 | grep '< HTTP/1.')
     echo "==========================================="
