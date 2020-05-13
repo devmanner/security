@@ -1,7 +1,7 @@
 #!/bin/bash
 
-tor_node_list="/tmp/tor_exit_nodes_"$(date "+%Y-%m-%d_%H:%M")".lst"
-blacklist="/tmp/blacklist_"$(date "+%Y-%m-%d_%H:%M")".lst"
+tor_node_list="/tmp/tor_exit_nodes_"$(date "+%Y-%m-%d_%H")".lst"
+blacklist="/tmp/blacklist_"$(date "+%Y-%m-%d_%H")".lst"
 
 if [ ! -f $blacklist ]; then
 	curl -s 'https://lists.blocklist.de/lists/all.txt' > $blacklist
