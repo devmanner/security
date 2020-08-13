@@ -1,3 +1,6 @@
+# Credit:
+# https://gcits.com/knowledge-base/find-inbox-rules-forward-mail-externally-office-365-powershell/
+
 Function Connect-EXOnline {
     $credentials = Get-Credential
     Write-Output "Getting the Exchange Online cmdlets"
@@ -49,7 +52,7 @@ foreach ($mailbox in $mailboxes) {
                 ExternalRecipients = $extRecString
             }
             $ruleObject = New-Object PSObject -Property $ruleHash
-            $ruleObject | Export-Csv C:\temp\externalrules.csv -NoTypeInformation -Append
+            $ruleObject | Export-Csv externalrules.csv -NoTypeInformation -Append
         }
     }
 }
