@@ -1,7 +1,10 @@
-FROM kalilinux/kali-linux-docker
+FROM kalilinux/kali-rolling
 
 RUN apt-get update
 RUN apt-get upgrade --yes
+
+# Needed for msfconsole SSL scans:
+RUN apt install python-crypto python3-gmpy2 --yes
 
 RUN apt-get install vim metasploit-framework --yes
 RUN apt-get install set --yes
