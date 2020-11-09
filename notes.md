@@ -57,4 +57,8 @@ qwinsta /server:1.1.1.1
 `
 
 
+# Useful tools
+
+https://xsshunter.com/
+
 
