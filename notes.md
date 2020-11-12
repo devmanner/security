@@ -59,6 +59,11 @@ qwinsta /server:1.1.1.1
 
 # Useful tools
 
+## XSS
+
 https://xsshunter.com/
 
+## SSL/TLS config guide
+
+https://mozilla.github.io/server-side-tls/ssl-config-generator/
 
