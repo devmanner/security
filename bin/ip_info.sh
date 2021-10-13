@@ -35,7 +35,7 @@ for ip in "$@"; do
 	fi
 
 	asn=$(curl -s https://api.hackertarget.com/aslookup/?q=$ip)
-	echo $asn | while IFS="," read -r i as as_name as_range; do		
+	echo $asn | while IFS="," read -r i as as_range as_name; do		
 	    echo AS: ${as//\"/}
     	echo AS Name: ${as_name//\"/}
         echo AS Range: ${as_range//\"/}
