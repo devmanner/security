@@ -73,3 +73,10 @@ https://xsshunter.com/
 
 https://mozilla.github.io/server-side-tls/ssl-config-generator/
 
+# tcpdump
+
+## DHCP
+
+    sudo tcpdump -i any -pvn port 67 and port 68
+
+
