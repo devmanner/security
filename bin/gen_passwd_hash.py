@@ -10,4 +10,4 @@ if sys.stdin.isatty():
 	print_hash(getpass.getpass())
 else:
 	for line in sys.stdin:
-		print_hash(line)
+		print_hash(line.strip())

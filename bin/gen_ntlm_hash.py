@@ -11,5 +11,5 @@ if sys.stdin.isatty():
 	print(ntlm_hash(getpass.getpass()).decode())
 else:
 	for line in sys.stdin:
-		print(ntlm_hash(line).decode())
+		print(ntlm_hash(line.strip()).decode())
 
