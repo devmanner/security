@@ -8,8 +8,8 @@ def ntlm_hash(passwd):
 	return binascii.hexlify(hash)
 
 if sys.stdin.isatty():
-	print(ntlm_hash(getpass.getpass()))
+	print(ntlm_hash(getpass.getpass()).decode())
 else:
 	for line in sys.stdin:
-		print(ntlm_hash(line))
+		print(ntlm_hash(line).decode())
 
