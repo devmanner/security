@@ -1,4 +1,4 @@
- Misc exploit
+# Misc exploit
 
 Command execution without space:
 
@@ -72,6 +72,11 @@ https://xsshunter.com/
 ## SSL/TLS config guide
 
 https://mozilla.github.io/server-side-tls/ssl-config-generator/
+
+
+## GTFOBins is a curated list of Unix binaries that can be used to bypass local security restrictions in misconfigured systems.
+
+https://gtfobins.github.io/
 
 # tcpdump
 
