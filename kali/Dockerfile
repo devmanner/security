@@ -1,4 +1,5 @@
 FROM kalilinux/kali-rolling
+ARG ARCH
 
 RUN apt-get update
 RUN apt-get upgrade --yes
@@ -15,9 +16,13 @@ RUN apt-get install screengrab --yes
 
 # Tools
 RUN apt-get install --yes 	net-tools \
-							tor \
-							hydra \
-							wordlists
+				iputils-ping \
+				tor \
+				hydra \
+				wordlists
+
+# Azurehound
+RUN cd /usr/local/bin && wget https://github.com/BloodHoundAD/AzureHound/releases/download/v1.2.0/azurehound-linux-$ARCH.zip && unzip azurehound-linux-arm64.zip && rm -f azurehound-linux-arm64.zip && cd -
 
 # SSH
 RUN apt-get install openssh-server --yes
