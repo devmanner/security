@@ -19,7 +19,9 @@ RUN apt-get install --yes 	net-tools \
 				iputils-ping \
 				tor \
 				hydra \
-				wordlists
+				wordlists \
+				testssl.sh \
+				sublist3r
 
 # Azurehound
 RUN cd /usr/local/bin && wget https://github.com/BloodHoundAD/AzureHound/releases/download/v1.2.0/azurehound-linux-$ARCH.zip && unzip azurehound-linux-arm64.zip && rm -f azurehound-linux-arm64.zip && cd -
@@ -33,8 +35,7 @@ RUN apt-get install openssh-server --yes
 RUN echo '# Added at docker build time\nMatch Address 172.17.0.0/16\n\tPermitRootLogin yes' >> /etc/ssh/sshd_config
 RUN service ssh start
 
-RUN mkdir /root/.ssh
-RUN chmod 600 /root/.ssh
+RUN mkdir -p /root/.ssh && chmod 600 /root/.ssh
 ADD id_*.pub /root/.ssh/authorized_keys
 RUN chmod 600 /root/.ssh/authorized_keys
 
