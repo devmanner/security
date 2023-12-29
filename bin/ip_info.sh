@@ -4,11 +4,19 @@ tor_node_list="/tmp/tor_exit_nodes_"$(date "+%Y-%m-%d_%H")".lst"
 blacklist="/tmp/blacklist_"$(date "+%Y-%m-%d_%H")".lst"
 
 if [ ! -f $blacklist ]; then
-	curl -s 'https://lists.blocklist.de/lists/all.txt' > $blacklist
+	ret=$(curl -s 'https://lists.blocklist.de/lists/all.txt' -o $blacklist --write-out '%{http_code}')
+	if [ $ret != "200" ]; then
+		echo "Failed to fetch blacklist! HTTP error "$ret
+		exit
+	fi
 fi
 
 if [ ! -f $tor_node_list ]; then
-	curl -s 'https://check.torproject.org/cgi-bin/TorBulkExitList.py?ip=1.1.1.1' | egrep -v "^#" > $tor_node_list
+	ret=$(curl -s 'https://check.torproject.org/torbulkexitlist?ip=1.1.1.1' -o $tor_node_list --write-out '%{http_code}')
+	if [ $ret != "200" ]; then
+		echo "Failed to fetch Tor exit node list! HTTP error "$ret
+		exit
+	fi
 fi
 
 for ip in "$@"; do
