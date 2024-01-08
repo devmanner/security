@@ -30,6 +30,12 @@ RUN cd /usr/local/bin && wget https://github.com/BloodHoundAD/AzureHound/release
 # RUN apt-get install --yes bloodhound
 # Commented out since bloodhound segfaults for some reason....
 
+# waybackurls
+RUN apt-get install golang --yes
+RUN echo "export GOPATH=/usr/lib/go" >> /root/.bashrc
+RUN export GOPATH=/usr/lib/go; go install github.com/tomnomnom/waybackurls@latest
+RUN ln -s /usr/lib/go/bin/waybackurls /usr/local/bin/
+
 # SSH
 RUN apt-get install openssh-server --yes
 RUN echo '# Added at docker build time\nMatch Address 172.17.0.0/16\n\tPermitRootLogin yes' >> /etc/ssh/sshd_config
