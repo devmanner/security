@@ -1,7 +1,11 @@
+#!/usr/bin/env python3
+
 import jwt
 import sys
 import json
 import base64
+import datetime  
+import time
 
 def deep_to_string(deep):
     if type(deep) is dict:
@@ -53,6 +57,10 @@ else:
         except:
             print("Error parsing JWT")
             exit(-1)
+
+decoded["_iat"] = datetime.datetime.fromtimestamp(decoded["payload"]["iat"]).strftime( "%Y-%m-%d %H:%M:%S")
+decoded["_exp"] = datetime.datetime.fromtimestamp(decoded["payload"]["exp"]).strftime( "%Y-%m-%d %H:%M:%S")
+decoded["_expired"] = int(time.time()) > decoded["payload"]["exp"]
 
 print(json.dumps(deep_to_string(decoded), indent=2))
 exit(exit_code)
