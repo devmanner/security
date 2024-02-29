@@ -42,7 +42,7 @@ if public_key == "":
         decoded = jwt.api_jwt.decode_complete(jwt_token, options={"verify_signature": False})
         decoded["_comment"] = "No public key provided to verify signature"
     except:
-        print("Error parsing JWT")
+        print("Error parsing JWT", file=sys.stderr)
         exit(-1)
 else:
     f = open(public_key)
@@ -55,7 +55,7 @@ else:
             decoded["_comment"] = "Failed to verify signature"
             exit_code = 1
         except:
-            print("Error parsing JWT")
+            print("Error parsing JWT", file=sys.stderr)
             exit(-1)
 
 decoded["_iat"] = datetime.datetime.fromtimestamp(decoded["payload"]["iat"]).strftime( "%Y-%m-%d %H:%M:%S")
