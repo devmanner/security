@@ -12,6 +12,9 @@ docker: Dockerfile
 	docker build --pull --build-arg ARCH=${ARCH} --tag devmanner/kali .
 	rm $(notdir ${ID_X_PUB})
 
+run:
+	docker run -it -p 2222:22 -u user devmanner/kali /bin/bash
+
 clean:
 	rm -f shadow.txt
 
