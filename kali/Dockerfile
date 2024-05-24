@@ -16,12 +16,13 @@ RUN apt-get install screengrab --yes
 
 # Tools
 RUN apt-get install --yes 	net-tools \
-				iputils-ping \
-				tor \
-				hydra \
-				wordlists \
-				testssl.sh \
-				sublist3r
+							iputils-ping \
+							tor \
+							hydra \
+							wordlists \
+							testssl.sh \
+							sublist3r \
+							ldapscripts
 
 # Azurehound
 RUN cd /usr/local/bin && wget https://github.com/BloodHoundAD/AzureHound/releases/download/v1.2.0/azurehound-linux-$ARCH.zip && unzip azurehound-linux-arm64.zip && rm -f azurehound-linux-arm64.zip && cd -
@@ -36,13 +37,28 @@ RUN echo "export GOPATH=/usr/lib/go" >> /root/.bashrc
 RUN export GOPATH=/usr/lib/go; go install github.com/tomnomnom/waybackurls@latest
 RUN ln -s /usr/lib/go/bin/waybackurls /usr/local/bin/
 
-# SSH
+# Add user and make sure to update /etc/shadow with the right password hash
+RUN useradd -rm -d /home/user -s /bin/bash -G sudo user
+COPY shadow.txt /root/
+RUN touch /root/shadow
+RUN chmod $(stat -c %a /etc/shadow) /root/shadow
+RUN chown $(stat -c %U /etc/shadow):$(stat -c %G /etc/shadow) /root/shadow
+RUN cat /etc/shadow | egrep -v "^user:" > /root/shadow
+RUN cat /root/shadow.txt >> /root/shadow
+RUN rm /root/shadow.txt
+RUN mv /root/shadow /etc/shadow
+
+# Prepare everything for SSH, but don't start it
 RUN apt-get install openssh-server --yes
-RUN echo '# Added at docker build time\nMatch Address 172.17.0.0/16\n\tPermitRootLogin yes' >> /etc/ssh/sshd_config
 RUN service ssh start
+# This is a hint that you should start the container with -p 2222:22
+EXPOSE 22
 
-RUN mkdir -p /root/.ssh && chmod 600 /root/.ssh
-ADD id_*.pub /root/.ssh/authorized_keys
-RUN chmod 600 /root/.ssh/authorized_keys
+RUN mkdir -p /home/user/.ssh
+RUN chmod 700 /home/user/.ssh
+ADD id_rsa.pub /home/user/.ssh/authorized_keys
+RUN chmod 600 /home/user/.ssh/authorized_keys
+RUN chown user:user /home/user/.ssh/
+RUN chown user:user /home/user/.ssh/authorized_keys
 
-ENTRYPOINT service ssh restart && /bin/bash
+ENTRYPOINT /bin/bash
