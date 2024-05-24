@@ -4,7 +4,8 @@ ARCH = $(shell uname -m)
 all: shadow.txt docker
 
 shadow.txt:
-	./mkpasswd.sh user > shadow.txt
+	./mkpasswd.sh user shadow.txt
+	chmod 600 shadow.txt
 
 docker: Dockerfile
 	cp ${ID_X_PUB} .

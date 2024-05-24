@@ -2,6 +2,7 @@
 
 # Variables
 username="$1"
+output="$2"
 
 echo -n Password: 
 read -s password
@@ -22,4 +23,4 @@ reserved=""
 # Combine fields into the shadow file format
 new_entry="$username:$hash:$lastchange:$minimum:$maximum:$warn:$inactive:$expire:$reserved"
 
-echo "$new_entry"
+echo "$new_entry" > $output
