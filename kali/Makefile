@@ -17,4 +17,5 @@ run:
 
 clean:
 	rm -f shadow.txt
+	docker rmi -f devmanner/kali
 
