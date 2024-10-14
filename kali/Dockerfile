@@ -48,6 +48,9 @@ RUN cat /root/shadow.txt >> /root/shadow
 RUN rm /root/shadow.txt
 RUN mv /root/shadow /etc/shadow
 
+# shodan
+RUN apt-get install python3-shodan python-shodan-doc --yes
+
 # Prepare everything for SSH, but don't start it
 RUN apt-get install openssh-server --yes
 RUN service ssh start
@@ -61,4 +64,6 @@ RUN chmod 600 /home/user/.ssh/authorized_keys
 RUN chown user:user /home/user/.ssh/
 RUN chown user:user /home/user/.ssh/authorized_keys
 
-ENTRYPOINT /bin/bash
+USER user
+
+# ENTRYPOINT /bin/bash
