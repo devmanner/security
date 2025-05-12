@@ -1,4 +1,4 @@
-ID_X_PUB = $(shell ls ~/.ssh/id_rsa.pub)
+ID_X_PUB = $(shell ls ~/.ssh/id_ed25519.pub)
 ARCH = $(shell uname -m)
 
 all: shadow.txt docker

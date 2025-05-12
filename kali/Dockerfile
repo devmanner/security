@@ -2,7 +2,6 @@ FROM kalilinux/kali-rolling
 ARG ARCH
 
 RUN apt-get update
-RUN apt-get upgrade --yes
 RUN apt-get install apt-utils --yes
 
 # Needed for msfconsole SSL scans:
@@ -59,7 +58,7 @@ EXPOSE 22
 
 RUN mkdir -p /home/user/.ssh
 RUN chmod 700 /home/user/.ssh
-ADD id_rsa.pub /home/user/.ssh/authorized_keys
+ADD id_ed25519.pub /home/user/.ssh/authorized_keys
 RUN chmod 600 /home/user/.ssh/authorized_keys
 RUN chown user:user /home/user/.ssh/
 RUN chown user:user /home/user/.ssh/authorized_keys
