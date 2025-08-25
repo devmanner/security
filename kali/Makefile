@@ -13,7 +13,7 @@ docker: Dockerfile
 	rm $(notdir ${ID_X_PUB})
 
 run:
-	docker run -it -p 2222:22 devmanner/kali
+	docker run -it -p 2222:22 -p 9999:9999 devmanner/kali
 
 clean:
 	rm -f shadow.txt
