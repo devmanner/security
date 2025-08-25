@@ -15,6 +15,7 @@ RUN apt-get install screengrab --yes
 
 # Tools
 RUN apt-get install --yes 	net-tools \
+							netcat-traditional \
 							iputils-ping \
 							tor \
 							hydra \
@@ -54,6 +55,8 @@ RUN apt-get install python3-shodan python-shodan-doc --yes
 RUN apt-get install openssh-server --yes
 RUN service ssh start
 # This is a hint that you should start the container with -p 2222:22
+# and then be able to connec to it using:
+# ssh -p 2222 user@localhost
 EXPOSE 22
 
 RUN mkdir -p /home/user/.ssh
